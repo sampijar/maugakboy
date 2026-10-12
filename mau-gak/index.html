@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mau Gak?</title>
+  <meta name="description" content="Kirim pertanyaan yang jawabannya cuma boleh 'Mau'. Tombol 'Gak'-nya kabur terus.">
+  <meta property="og:title" content="Ada yang mau nanya sesuatu 👀">
+  <meta property="og:description" content="Jawab jujur ya… (tapi tombol 'Gak'-nya agak susah dipencet)">
+  <meta name="theme-color" content="#ffe4ec">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ========== MODE PEMBUAT ========== -->
+    <section id="maker" hidden>
+      <p class="eyebrow">Mau Gak?</p>
+      <h1>Tanya apa aja, jawabannya pasti “Mau”</h1>
+      <p class="sub">Tombol “Gak”-nya bakal kabur tiap mau dipencet. Isi pertanyaanmu, dapat link, kirim.</p>
+
+      <form id="form" class="card" autocomplete="off">
+        <label>Untuk siapa?
+          <input id="to" maxlength="30" placeholder="contoh: Sayang">
+        </label>
+        <label>Pertanyaannya
+          <input id="q" maxlength="120" placeholder="Mau jalan sama aku Sabtu ini?">
+        </label>
+        <label>Pesan setelah dia jawab “Mau”
+          <textarea id="yes" rows="3" maxlength="400" placeholder="Yeay! Jemput jam 7 ya, dandan yang cantik 💖"></textarea>
+        </label>
+        <label>Dari siapa?
+          <input id="from" maxlength="30" placeholder="contoh: Aku">
+        </label>
+        <label>No. WhatsApp kamu <span class="opt">(opsional)</span>
+          <input id="wa" inputmode="tel" maxlength="20" placeholder="0812xxxxxxx">
+          <small>Kalau diisi, dia bisa langsung balas jawabannya ke WA kamu.</small>
+        </label>
+        <p id="err" class="err" hidden></p>
+        <button class="btn primary" type="submit">Buat link</button>
+      </form>
+
+      <div id="result" class="card" hidden>
+        <p class="eyebrow">Link siap dikirim</p>
+        <input id="link" readonly>
+        <div class="row">
+          <button id="copy" class="btn">Salin</button>
+          <a id="share-wa" class="btn" target="_blank" rel="noopener">WhatsApp</a>
+          <button id="share" class="btn" hidden>Bagikan</button>
+        </div>
+        <a id="preview" class="btn ghost">Coba dulu →</a>
+        <small>Semua isi tersimpan di link itu sendiri, tidak ada server.</small>
+      </div>
+    </section>
+
+    <!-- ========== MODE PENERIMA: PERTANYAAN ========== -->
+    <section id="ask" hidden>
+      <svg id="buddy" viewBox="0 0 200 180" aria-hidden="true">
+        <path class="body" d="M100 165 C 40 125, 10 95, 10 60 C 10 30, 32 12, 58 12 C 78 12, 92 24, 100 38 C 108 24, 122 12, 142 12 C 168 12, 190 30, 190 60 C 190 95, 160 125, 100 165 Z"/>
+        <ellipse class="cheek" cx="52" cy="84" rx="13" ry="8"/>
+        <ellipse class="cheek" cx="148" cy="84" rx="13" ry="8"/>
+        <g id="eyes">
+          <circle class="eye" cx="72" cy="66" r="9"/><circle class="glint" cx="75" cy="62" r="3"/>
+          <circle class="eye" cx="128" cy="66" r="9"/><circle class="glint" cx="131" cy="62" r="3"/>
+        </g>
+        <path id="mouth" class="mouth" d="M86 92 Q100 106 114 92"/>
+        <path id="tear" class="tear" d="M62 80 q-6 12 0 16 q6 -4 0 -16z"/>
+      </svg>
+
+      <p class="eyebrow" id="askTo">Hai kamu</p>
+      <h1 id="question">Mau gak?</h1>
+
+      <div class="choices" id="choices">
+        <button id="yesBtn" class="btn yes">Mau 💖</button>
+        <button id="noBtn" class="btn no">Gak</button>
+      </div>
+      <p id="tease" class="tease"></p>
+    </section>
+
+    <!-- ========== MODE PENERIMA: SETELAH MAU ========== -->
+    <section id="done" hidden>
+      <svg class="big-heart" viewBox="0 0 200 180" aria-hidden="true">
+        <path class="body" d="M100 165 C 40 125, 10 95, 10 60 C 10 30, 32 12, 58 12 C 78 12, 92 24, 100 38 C 108 24, 122 12, 142 12 C 168 12, 190 30, 190 60 C 190 95, 160 125, 100 165 Z"/>
+        <path class="happy-eye" d="M62 68 Q72 56 82 68"/><path class="happy-eye" d="M118 68 Q128 56 138 68"/>
+        <path class="mouth" d="M80 88 Q100 118 120 88 Z" style="fill:#7a1f3d"/>
+        <ellipse class="cheek" cx="52" cy="84" rx="13" ry="8"/><ellipse class="cheek" cx="148" cy="84" rx="13" ry="8"/>
+      </svg>
+      <p class="eyebrow">Yeay! Jawabannya “Mau”</p>
+      <h1 id="yesMsg">Aku tahu kamu pasti mau 💖</h1>
+      <p id="yesFrom" class="from"></p>
+      <div class="stack">
+        <a id="replyWa" class="btn primary" target="_blank" rel="noopener" hidden>Kabarin dia lewat WhatsApp</a>
+        <a id="makeOwn" class="btn ghost">Bikin punyamu</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
